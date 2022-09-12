@@ -53,6 +53,7 @@ def get_pass_df(home_team, away_team, team_req):
 
 def pass_network(home_team, away_team, team_req):
     events_team_name = get_pass_df(home_team, away_team, team_req)
+    events = get_events(home_team, away_team)
     tact = events[events['tactics'].isnull()==False][['tactics','team','type']]
     tact = tact[tact['type']=='Starting XI']
     tact_team_name = tact[tact.team==team_name]['tactics']
