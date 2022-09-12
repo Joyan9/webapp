@@ -102,6 +102,7 @@ st.sidebar.write("Away Team --> ",away_team)
 #----HOME PAGE----
 team_req = st.radio("Home or Away", options = ['home','away'])
 col = st.columns(1)
+st.write("Pressure map helps visualise the locations on the pitch where pressure was applied by the selected team. Bright regions signify high pressure and darker regions shows less pressure was applied in that region.")
 if len(teams) == 2:
     st.set_option('deprecation.showPyplotGlobalUse', False)
     st.pyplot(fig=pressure_map(home_team, away_team, team_req))
