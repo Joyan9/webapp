@@ -1,4 +1,5 @@
 import streamlit as st
+import numpy as np
 from statsbombpy import sb
 import matplotlib.patheffects as path_effects
 import matplotlib.pyplot as plt
