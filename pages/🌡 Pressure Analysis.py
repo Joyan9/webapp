@@ -50,41 +50,36 @@ def get_pressure_df(home_team, away_team, team_req):
 
 def pressure_map(home_team,away_team,team_req):
     df_pressure = get_pressure_df(home_team,away_team,team_req)
+
     if team_req == 'home':
         team_name = home_team
     else:
         team_name = away_team
-    pitch = Pitch(pitch_type='statsbomb', line_zorder=2,
-              pitch_color='grass', line_color='#efefef')
-    # draw
-    fig, axs = pitch.grid(endnote_height=0.03, endnote_space=0,
-                          grid_width=0.88, left=0.025,
-                          title_height=0.06, title_space=0,
+
+    pitch = VerticalPitch(pitch_type='statsbomb', line_zorder=2, pitch_color='#1e4259')
+    fig, axs = pitch.grid(figheight = 15,endnote_height=0.03, endnote_space=0,
+                          title_height=0.08, title_space=0,
                           axis=False,
-                          grid_height=0.86)
-    #fig.set_facecolor('#22312b')
+                          grid_height=0.84)
+    fig.set_facecolor('#1e4259')
 
-    # plot heatmap
-    bin_statistic = pitch.bin_statistic(df_pressure.x, df_pressure.y, statistic='count', bins=(25, 25))
-    bin_statistic['statistic'] = gaussian_filter(bin_statistic['statistic'], 1)
-    pcm = pitch.heatmap(bin_statistic, ax=axs['pitch'], cmap='hot', edgecolors='#22312b')
-
-    # add cbar
-    ax_cbar = fig.add_axes((0.915, 0.093, 0.03, 0.786))
-    cbar = plt.colorbar(pcm, cax=ax_cbar)
-    cbar.outline.set_edgecolor('#efefef')
-    cbar.ax.yaxis.set_tick_params(color='#efefef')
-    plt.setp(plt.getp(cbar.ax.axes, 'yticklabels'), color='#efefef')
-    for label in cbar.ax.get_yticklabels():
-        label.set_fontproperties(robotto_regular.prop)
-        label.set_fontsize(15)
+    bin_x = np.linspace(pitch.dim.left, pitch.dim.right, num=7)
+    bin_y = np.sort(np.array([pitch.dim.bottom, pitch.dim.six_yard_bottom,
+                              pitch.dim.six_yard_top, pitch.dim.top]))
+    bin_statistic = pitch.bin_statistic(df_pressure.x, df_pressure.y, statistic='count',
+                                        bins=(bin_x, bin_y), normalize=True)
+    pitch.heatmap(bin_statistic, ax=axs['pitch'], cmap='Oranges_r', edgecolor='#f9f9f9')
+    labels3 = pitch.label_heatmap(bin_statistic, color='#dee6ea', fontsize=18,
+                                  ax=axs['pitch'], ha='center', va='center',
+                                  str_format='{:.0%}', path_effects=path_eff)
 
     # endnote and title
-    axs['endnote'].text(1, 0.5, '@BhathenaJoyan', va='center', ha='right', fontsize=15,
-                        fontproperties=robotto_regular.prop, color='#dee6ea')
-    ax_title = axs['title'].text(0.5, 0.5, f"Pressure applied by {team_name}", color='black',
-                                 va='center', ha='center', path_effects=path_eff,
-                                 fontproperties=robotto_regular.prop, fontsize=30)
+    endnote_text = axs['endnote'].text(1, 0.5, '@BhathenaJoyan',
+                                       va='center', ha='right', fontsize=15,
+                                       fontproperties=robotto_regular.prop, color='#dee6ea')
+    title_text = axs['title'].text(0.5, 0.5, f"Pressure applied by\n {team_name}",
+                                   color='#dee6ea', va='center', ha='center', path_effects=path_eff,
+                                   fontproperties=robotto_regular.prop, fontsize=30)
     
 
 teams = get_teams_name()
