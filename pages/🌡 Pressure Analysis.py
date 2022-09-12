@@ -4,7 +4,7 @@ import matplotlib.patheffects as path_effects
 import matplotlib.pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap
 from scipy.ndimage import gaussian_filter
-from mplsoccer import Pitch,FontManager
+from mplsoccer import VerticalPitch,FontManager
 
 robotto_regular = FontManager()
 
