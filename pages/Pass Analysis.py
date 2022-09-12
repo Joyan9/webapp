@@ -32,22 +32,6 @@ def get_pass_df(home_team, away_team, team_req):
         team_name = away_team
     events_pn = events[['minute','second','team','type','location','pass_end_location','pass_outcome','player']]
     team_pass_mask = (events_pn.type == 'Pass') & (events_pn.team == team_name)
-    
-    tact = events[events['tactics'].isnull()==False][['tactics','team','type']]
-    tact = tact[tact['type']=='Starting XI']
-    tact_team_name = tact[tact.team==team_name]['tactics']
-    try:
-        dict_team_name = tact_team_name[0]['lineup']
-    except:
-        dict_team_name = tact_team_name[1]['lineup']
-
-    lineup_team_name = pd.DataFrame.from_dict(dict_team_name)
-    players_team_name = {}
-    for i in range(len(lineup_team_name)):
-        key = lineup_team_name.player[i]['name']
-        val = lineup_team_name.jersey_number[i]
-        players_team_name[key] = str(val)
-    
     events_team_name = events_pn[team_pass_mask]
     events_team_name['pass_maker'], events_team_name['pass_receiver'] = events_team_name['player'], events_team_name['player'].shift(-1)
     events_team_name = events_team_name[events_team_name['pass_outcome'].isnull()==True].reset_index()
@@ -69,6 +53,20 @@ def get_pass_df(home_team, away_team, team_req):
 
 def pass_network(home_team, away_team, team_req):
     events_team_name = get_pass_df(home_team, away_team, team_req)
+    tact = events[events['tactics'].isnull()==False][['tactics','team','type']]
+    tact = tact[tact['type']=='Starting XI']
+    tact_team_name = tact[tact.team==team_name]['tactics']
+    try:
+        dict_team_name = tact_team_name[0]['lineup']
+    except:
+        dict_team_name = tact_team_name[1]['lineup']
+
+    lineup_team_name = pd.DataFrame.from_dict(dict_team_name)
+    players_team_name = {}
+    for i in range(len(lineup_team_name)):
+        key = lineup_team_name.player[i]['name']
+        val = lineup_team_name.jersey_number[i]
+        players_team_name[key] = str(val)
     
     av_loc_team_name = events_team_name.groupby('pass_maker').agg({'pass_maker_x':['mean'],'pass_maker_y':['mean','count']})
     av_loc_team_name.columns = ['pass_maker_x','pass_maker_y','count']
