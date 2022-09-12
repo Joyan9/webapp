@@ -112,7 +112,7 @@ def pass_network(home_team, away_team, team_req):
         pitch.annotate(row.name.split(' ')[0], xy=(row.pass_maker_x, row.pass_maker_y), c='black', va='center',
                        ha='center', size=8, weight='bold', ax=ax)
         
-    return fig
+    return plt.show()
 
 def pass_flow(home_team,away_team, team_req):
     pass_df = get_pass_df(home_team,away_team,team_req)
@@ -158,7 +158,7 @@ with tab1:
     try:
         st.pyplot(fig=pass_network(home_team, away_team, team_req))
     except:
-        pass
+        print("Something went wrong!")
 
 with tab2:
     st.header("Pass Flow")
