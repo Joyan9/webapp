@@ -144,7 +144,7 @@ st.sidebar.header("First Select Home Team and then Select Away team")
 teams = st.sidebar.multiselect(
     "Select teams (max 2):",
     options=teams,
-    default = ['Goa','Mumbai City']
+    default = ['Goa','Kerala Blasters']
 )
 home_team, away_team = teams[0], teams[1]
 st.sidebar.write("Home Team --> ",home_team)
@@ -155,10 +155,7 @@ tab1, tab2 = st.tabs(["Pass Network", "Pass Flow"])
 with tab1:
     st.header("Pass Network")
     st.write("Pass networks help visualise the common pass routes in the given team. The player locations is the average player location during the match. For the sake of simplicity, the pass network only shows the starting XI players and not the substitutes. The shade of the line shows the number of passes between those players.")
-    try:
-        st.pyplot(fig=pass_network(home_team, away_team, team_req))
-    except:
-        print("Something went wrong!")
+    st.pyplot(fig=pass_network(home_team, away_team, team_req))
 
 with tab2:
     st.header("Pass Flow")
