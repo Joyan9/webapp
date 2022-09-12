@@ -158,7 +158,11 @@ tab1, tab2 = st.tabs(["Pass Network", "Pass Flow"])
 with tab1:
     st.header("Pass Network")
     st.write("Pass networks help visualise the common pass routes in the given team. The player locations is the average player location during the match. For the sake of simplicity, the pass network only shows the starting XI players and not the substitutes. The shade of the line shows the number of passes between those players.")
-    st.pyplot(fig=pass_network(home_team, away_team, team_req))
+    try:
+        st.pyplot(fig=pass_network(home_team, away_team, team_req))
+    except:
+        st.write("Something went wrong!")
+    
 
 with tab2:
     st.header("Pass Flow")
