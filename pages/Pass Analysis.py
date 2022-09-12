@@ -112,7 +112,7 @@ def pass_network(home_team, away_team, team_req):
         pitch.annotate(row.name.split(' ')[0], xy=(row.pass_maker_x, row.pass_maker_y), c='black', va='center',
                        ha='center', size=8, weight='bold', ax=ax)
         
-    return plt.show()
+    return fig
 
 def pass_flow(home_team,away_team, team_req):
     pass_df = get_pass_df(home_team,away_team,team_req)
@@ -133,6 +133,8 @@ def pass_flow(home_team,away_team, team_req):
         ax=ax, color='black', arrow_type='same', arrow_length=9, bins=bins
     )
     ax.set_title(f'{team_name} Pass Flow Map', fontsize=30)
+    
+    return fig
 
 
 
