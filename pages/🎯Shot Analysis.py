@@ -97,6 +97,7 @@ st.sidebar.write("Away Team --> ",away_team)
 team_req = st.radio("Home or Away", options = ['home','away'])
 
 col = st.columns(1)
+st.write("Goals are denoted by FOOTBALLS and rest all other are non-goal shots. The size of the circle signifies the probablity of scoring from that position(xG).")
 if len(teams) == 2:
     st.set_option('deprecation.showPyplotGlobalUse', False)
     st.pyplot(fig=shot_map(home_team, away_team, team_req))
