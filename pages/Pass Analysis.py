@@ -154,8 +154,7 @@ with tab1:
     st.header("Pass Network")
     st.write("Pass networks help visualise the common pass routes in the given team. The player locations is the average player location during the match. For the sake of simplicity, the pass network only shows the starting XI players and not the substitutes. The shade of the line shows the number of passes between those players.")
     try:
-        if len(teams) == 2:
-            st.pyplot(fig=pass_network(home_team, away_team, team_req))
+        st.pyplot(fig=pass_network(home_team, away_team, team_req))
     except:
         pass
 
@@ -163,8 +162,7 @@ with tab2:
     st.header("Pass Flow")
     st.write("Pass flow maps are basically heatmaps with directions, they help to understand which areas of the pitch had most passes and which direction as well.")
     try:
-        if len(teams) == 2:
-            st.pyplot(fig=pass_flow(home_team, away_team,team_req))
+        st.pyplot(fig=pass_flow(home_team, away_team,team_req))
     except:
         pass
 
