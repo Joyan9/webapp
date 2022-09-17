@@ -31,8 +31,8 @@ def get_player_list(home_team, away_team):
     return home_players, away_players
 
 def get_player_xT(home_team,away_team,player_name):
-    xT = pd.read_csv("/pages/xT_grid.csv", header=None)
-    event = pd.read_csv("/pages/ISL_2021-22_xT.csv")
+    xT = pd.read_csv("webapp/pages/xT_grid.csv", header=None)
+    event = pd.read_csv("webapp/pages/ISL_2021-22_xT.csv")
     df = event[event.match_id == get_match_id(home_team,away_team)]
     df = df.loc[df['player_name'] == player_name]
     xT = np.array(xT)
