@@ -9,7 +9,7 @@ from mplsoccer import Pitch,FontManager,Sbopen, Pitch
 robotto_regular = FontManager()
 
 cwd = os.getcwd()
-st.write(cwd)
+st.title("Highest Expected Threat Creators 🔥")
 @st.experimental_memo
 def get_teams_name():
     # get match teams name
