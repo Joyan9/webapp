@@ -1,4 +1,5 @@
 import streamlit as st
+import os
 import pandas as pd
 import numpy as np
 from statsbombpy import sb
@@ -7,6 +8,8 @@ import seaborn as sns
 from mplsoccer import Pitch,FontManager,Sbopen, Pitch
 robotto_regular = FontManager()
 
+cwd = os.getcwd()
+st.write(cwd)
 @st.experimental_memo
 def get_teams_name():
     # get match teams name
@@ -31,10 +34,10 @@ def get_player_list(home_team, away_team):
     return home_players, away_players
 
 def get_xT_grid():
-    xT_grid = open('/pages/xT_grid.csv')
+    xT_grid = open(cwd+'/xT_grid.csv')
     return xT_grid
 def get_event_data():
-    event = open("/pages/ISL_2021-22_xT.csv")
+    event = open(cwd+"/ISL_2021-22_xT.csv")
     return event                     
 
 def get_player_xT(home_team,away_team,player_name):
