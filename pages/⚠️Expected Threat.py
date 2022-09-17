@@ -34,10 +34,10 @@ def get_player_list(home_team, away_team):
     return home_players, away_players
 
 def get_xT_grid():
-    xT_grid = open(cwd+'/xT_Grid.csv')
+    xT_grid = pd.read_csv(cwd+'/xT_Grid.csv')
     return xT_grid
 def get_event_data():
-    event = open(cwd+"/ISL_2021-22_xT.csv")
+    event = pd.read_csv(cwd+"/ISL_2021-22_xT.csv")
     return event                     
 
 def get_player_xT(home_team,away_team,player_name):
